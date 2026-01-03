@@ -7,11 +7,16 @@ install.packages("phylotools")
 library(ape)
 library(phylotools)
 
+
+
 # clear R's brains
 rm(list = ls())
 
+
 setwd("/Users/andremoncrieff/Dropbox/Work/Postdoc/Manuscript--Xiphorhynchus/IQTREE/")
+
 ntree <- read.tree(file = "xipho.min4.phy.varsites.phy.treefile")
+
 
 #tips <- tree$tip.label
 #newtips <- read.table("newnames.txt", sep = "\t", header = TRUE)
