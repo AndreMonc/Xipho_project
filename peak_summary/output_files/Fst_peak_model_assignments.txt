@@ -1,0 +1,216 @@
+chrom	peak_id	peak_start	peak_end	outlier_n_windows	peak_n_windows	has_p99_belem	has_p99_xingu	has_p99_any	any_intro	any_dls	any_selbot	any_geno	overlap_models	primary_model	model_block
+Chromosome_10_RagTag	4	14660000	14720000	6	6	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_10_RagTag	8	24600000	24620000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_13_RagTag	1	12890000	13000000	3	3	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_14_RagTag	6	19930000	19950000	2	2	FALSE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_14_RagTag	7	20070000	20260000	9	9	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_16_RagTag	3	17490000	17510000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_17_RagTag	3	13860000	13890000	3	3	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_19_RagTag	4	12720000	12840000	9	9	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_1_RagTag	21	99790000	99810000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_1_RagTag	26	119380000	119450000	5	5	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_1_RagTag	28	122660000	122700000	4	4	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_1_RagTag	31	137790000	137930000	7	7	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_2_RagTag	11	39620000	39640000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_4_RagTag	16	70750000	70940000	12	12	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_5_RagTag	12	42100000	42250000	5	5	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_6_RagTag	8	34570000	34590000	2	2	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_6_RagTag	9	37560000	37580000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_6_RagTag	10	40130000	40190000	4	4	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_7_RagTag	2	2780000	2870000	4	4	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_9_RagTag	4	20980000	21010000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Selection
+Chromosome_11_RagTag	2	22430000	22440000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_12_RagTag	3	9300000	9310000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_13_RagTag	2	15150000	15160000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_14_RagTag	3	3570000	3580000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_16_RagTag	2	13030000	13040000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_1_RagTag	4	28570000	28580000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_1_RagTag	7	37440000	37450000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_1_RagTag	13	66770000	66780000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_1_RagTag	18	76060000	76070000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_1_RagTag	19	77560000	77570000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_1_RagTag	30	128630000	128640000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_3_RagTag	20	52380000	52390000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_3_RagTag	33	116360000	116370000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_4_RagTag	1	31490000	31500000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_4_RagTag	9	51430000	51440000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_4_RagTag	14	70390000	70400000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_5_RagTag	1	15320000	15330000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_5_RagTag	9	33690000	33700000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_6_RagTag	7	34460000	34470000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_8_RagTag	4	33920000	33930000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_9_RagTag	1	3200000	3210000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_Z_RagTag	1	14200000	14210000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+scaffold_113	1	780000	790000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Bottleneck
+Chromosome_10_RagTag	5	17880000	17890000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_12_RagTag	1	6000000	6020000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_12_RagTag	2	9170000	9190000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_14_RagTag	1	1540000	1550000	1	1	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_14_RagTag	2	2640000	2700000	3	3	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_1_RagTag	9	42600000	42640000	4	4	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_1_RagTag	10	53850000	53880000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_21_RagTag	1	360000	370000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_26_RagTag	1	2010000	2020000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_29_RagTag	2	2480000	2530000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_2_RagTag	9	29800000	29810000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_2_RagTag	21	97340000	97350000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_3_RagTag	3	12650000	12660000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_3_RagTag	17	39500000	39520000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_4_RagTag	13	64820000	64840000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_4_RagTag	15	70520000	70530000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_5_RagTag	4	22810000	22820000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_5_RagTag	8	32900000	32920000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_5_RagTag	14	49820000	49830000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_6_RagTag	2	18640000	18660000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_6_RagTag	6	34330000	34340000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_6_RagTag	12	49360000	49380000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_6_RagTag	13	51160000	51170000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	Selection-bottleneck	Selection-bottleneck	Selection-bottleneck: Other
+Chromosome_15_RagTag	3	19100000	19110000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	FALSE	TRUE	Genomic architecture	Genomic architecture	Genomic architecture
+Chromosome_19_RagTag	2	870000	880000	1	1	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	TRUE	Genomic architecture	Genomic architecture	Genomic architecture
+Chromosome_7_RagTag	1	2670000	2690000	2	2	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	TRUE	Genomic architecture	Genomic architecture	Genomic architecture
+Chromosome_Z_RagTag	4	38400000	38460000	3	3	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	TRUE	Genomic architecture	Genomic architecture	Genomic architecture
+Chromosome_1_RagTag	12	65190000	65200000	1	1	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	Introgression	Introgression	Introgression
+Chromosome_3_RagTag	8	23690000	23730000	3	3	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	Introgression	Introgression	Introgression
+Chromosome_4_RagTag	7	43440000	43450000	1	1	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	Introgression	Introgression	Introgression
+Chromosome_5_RagTag	5	28880000	28890000	1	1	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	Introgression	Introgression	Introgression
+Chromosome_5_RagTag	17	60080000	60090000	1	1	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	Introgression	Introgression	Introgression
+Chromosome_Z_RagTag	5	47680000	47690000	1	1	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	Introgression	Introgression	Introgression
+Chromosome_14_RagTag	5	13110000	13120000	1	1	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	Deep lineage sorting	Deep lineage sorting	Deep lineage sorting
+Chromosome_5_RagTag	3	15900000	15920000	2	2	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	Deep lineage sorting	Deep lineage sorting	Deep lineage sorting
+Chromosome_10_RagTag	6	18250000	18270000	2	2	FALSE	FALSE	FALSE	TRUE	TRUE	TRUE	FALSE	Selection-bottleneck + Introgression + Deep lineage sorting	Overlapping models	Overlapping models
+Chromosome_19_RagTag	1	720000	800000	3	3	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	Selection-bottleneck + Genomic architecture	Overlapping models	Overlapping models
+Chromosome_1_RagTag	16	71330000	71350000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	Selection-bottleneck + Genomic architecture	Overlapping models	Overlapping models
+Chromosome_1_RagTag	20	86830000	86880000	4	4	FALSE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	Selection-bottleneck + Introgression	Overlapping models	Overlapping models
+Chromosome_1_RagTag	27	119880000	119910000	3	3	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	Selection-bottleneck + Genomic architecture	Overlapping models	Overlapping models
+Chromosome_25_RagTag	1	6650000	6840000	9	9	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	Selection-bottleneck + Genomic architecture	Overlapping models	Overlapping models
+Chromosome_3_RagTag	13	36680000	36730000	5	5	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE	FALSE	Selection-bottleneck + Introgression + Deep lineage sorting	Overlapping models	Overlapping models
+Chromosome_3_RagTag	18	47030000	47040000	1	1	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	FALSE	Introgression + Deep lineage sorting	Overlapping models	Overlapping models
+Chromosome_4_RagTag	6	40180000	40200000	2	2	FALSE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	Selection-bottleneck + Introgression	Overlapping models	Overlapping models
+Chromosome_4_RagTag	17	71450000	71470000	2	2	FALSE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	Selection-bottleneck + Introgression	Overlapping models	Overlapping models
+Chromosome_7_RagTag	5	22120000	22150000	3	3	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	Selection-bottleneck + Genomic architecture	Overlapping models	Overlapping models
+Chromosome_10_RagTag	1	200000	210000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_10_RagTag	2	440000	450000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_10_RagTag	3	8080000	8090000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_10_RagTag	7	24310000	24360000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_10_RagTag	9	24780000	24790000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_11_RagTag	1	14040000	14050000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_12_RagTag	4	12060000	12070000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_12_RagTag	5	15030000	15050000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_14_RagTag	4	3650000	3660000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_15_RagTag	1	11120000	11130000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_15_RagTag	2	14880000	14890000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_16_RagTag	1	1780000	1790000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_17_RagTag	1	130000	140000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_17_RagTag	2	12530000	12540000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_18_RagTag	1	13520000	13530000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_19_RagTag	3	5550000	5560000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	1	3770000	3780000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	2	7700000	7710000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	3	19870000	19880000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	5	30730000	30740000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	6	32690000	32700000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	8	38620000	38630000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	11	54060000	54070000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	14	69480000	69490000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	15	69680000	69750000	2	2	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	17	71960000	71970000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	22	104820000	104830000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	23	113500000	113510000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	24	114860000	114870000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	25	116150000	116160000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	29	128290000	128300000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_1_RagTag	32	139570000	139580000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_21_RagTag	2	480000	500000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_23_RagTag	1	7160000	7170000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_27_RagTag	1	6210000	6220000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_29_RagTag	1	1570000	1580000	1	1	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_29_RagTag	3	2620000	2630000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	1	6920000	6930000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	2	9270000	9280000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	3	14230000	14240000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	4	15120000	15130000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	5	15410000	15420000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	6	25960000	25980000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	7	26280000	26290000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	8	27460000	27470000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	10	30350000	30360000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	12	40060000	40080000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	13	40340000	40350000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	14	42760000	42770000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	15	46790000	46800000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	16	55110000	55120000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	17	70580000	70590000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	18	77980000	77990000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	19	79800000	79810000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	20	80650000	80660000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	22	108440000	108450000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_2_RagTag	23	115640000	115650000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_30_RagTag	1	820000	830000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	1	2770000	2780000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	2	12580000	12590000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	4	17120000	17130000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	5	19480000	19490000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	6	21670000	21680000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	7	23580000	23590000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	9	24720000	24740000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	10	29880000	29890000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	11	30770000	30780000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	12	34780000	34790000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	14	38510000	38520000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	15	38750000	38760000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	16	39390000	39400000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	19	48710000	48720000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	21	52620000	52630000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	22	52760000	52770000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	23	55200000	55210000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	24	58970000	58980000	1	1	FALSE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	25	66260000	66270000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	26	66650000	66660000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	27	72380000	72390000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	28	76400000	76410000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	29	83190000	83210000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	30	87770000	87780000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	31	98020000	98030000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_3_RagTag	32	103390000	103400000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	2	32000000	32010000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	3	33570000	33590000	2	2	FALSE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	4	37030000	37040000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	5	38100000	38110000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	8	50910000	50980000	2	2	FALSE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	10	55310000	55320000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	11	57820000	57860000	2	2	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_4_RagTag	12	64480000	64490000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	2	15510000	15520000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	6	31390000	31400000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	7	32090000	32100000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	10	37630000	37640000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	11	41670000	41680000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	13	43450000	43460000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	15	50420000	50430000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	16	52960000	52970000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	18	61970000	61980000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_5_RagTag	19	65040000	65050000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	1	10960000	10970000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	3	23120000	23130000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	4	24890000	24900000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	5	27240000	27250000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	11	42770000	42780000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	14	56430000	56440000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_6_RagTag	15	57960000	57970000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_7_RagTag	3	12980000	12990000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_7_RagTag	4	21990000	22000000	1	1	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_7_RagTag	6	24320000	24330000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_7_RagTag	7	26490000	26500000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_7_RagTag	8	32510000	32520000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_8_RagTag	1	20980000	20990000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_8_RagTag	2	26010000	26020000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_8_RagTag	3	32820000	32830000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_8_RagTag	5	34120000	34130000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_9_RagTag	2	8840000	8850000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_9_RagTag	3	19540000	19550000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_9_RagTag	5	21150000	21160000	1	1	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_9_RagTag	6	27370000	27380000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_Z_RagTag	2	18500000	18510000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_Z_RagTag	3	18750000	18760000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+Chromosome_Z_RagTag	6	52490000	52500000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
+scaffold_113	2	860000	870000	1	1	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	NA	Unassigned to model	Unassigned to model
