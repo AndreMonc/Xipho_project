@@ -1,0 +1,24 @@
+33                                                    !Integer, #Individuals
+99298                                                 !Integer, #Loci
+1                                                     !Boolean, All loci SNP (1/0=Y/N)
+0                                                     !String, Missing allele
+333                                                   !Integer, Random number seed
+cluster_vcf_final.recode.dat                          !String, Genotypefilename
+xipho_popc                                            !String, Outputfilename
+0                                                     !integer, 3/2/1/0 = strong/medium/weak/no scaling
+1                                                     !Integer, Minimum K
+5                                                     !Integer, Maximum K
+10                                                    !Integer, Num replicate runs per K
+0                                                     !Integer, 0/1=Search using assignment_prob/relatedness
+0                                                     !Boolean, 1/0=Output allele frequency:YES/NO
+0                                                     !Boolean, 1/0=PopData available:YES/NO
+0                                                     !Boolean, 1/0=PopFlag available:YES/NO
+2                                                     !Integer, 1/2/3/4=Mixture/Admixture/Hybridyzation/Migration model
+0                                                     !Boolean, 1/0=Estimate locus-specific F-Statistics=Y/N
+0                                                     !Boolean, 1/0=Use K-Means clustering method=Y/N
+0                                                     !Boolean, 1/0=Individual location data available=Y/N
+0                                                     !Integer, 0/1/2=Individual data in 1-row/2-rows/1-column
+0                                                     !Boolean, 1/0=Infer locus admixture=Y/N
+0                                                     !Boolean, 0/1/2: Compute relatedness = No/Wang/LynchRitland
+1                                                     !Boolean, 0/1 estimate kinship = No/Yes
+2                                                     !Integer, 0/1/2=Undefined/equal/unequal prior allele freq

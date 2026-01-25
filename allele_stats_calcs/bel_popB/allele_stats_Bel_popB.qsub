@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -A hpc_argweaver3
+#PBS -l nodes=1:ppn=64
+#PBS -l walltime=4:00:00
+#PBS -q bigmem
+#PBS -N allele_stats_Bel_popB
+
+cd /scratch/a_monc/postdoc/xipho_project/allele_stats
+
+python allele_stats.py --vcfFile /ddnA/work/a_monc/postdoc/xipho_project/vcftools_filtering/Fst_vcf_final.recode.vcf --skipRows 321 \
+--windowFile windows.bed --popKey popKey.txt --popA xingu \
+--popB belem --popC tapajos

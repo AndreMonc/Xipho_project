@@ -1,0 +1,32 @@
+time_units: kya
+generation_time: 0.003
+demes:
+- name: ancestral
+  epochs:
+  - {end_time: 230.955, start_size: 381150.8759664242}
+- name: Tap
+  ancestors: [ancestral]
+  epochs:
+  - {end_time: 56.54099999668621, start_size: 3876.9109099587554, end_size: 3054617.070801281,
+    size_function: linear}
+  - {end_time: 0.0, start_size: 6188891.072804385}
+- name: Xin_Bel
+  ancestors: [ancestral]
+  epochs:
+  - {end_time: 56.54099999668621, start_size: 3811.508759664242, end_size: 634536.5653463742,
+    size_function: linear}
+- name: Xin
+  ancestors: [Xin_Bel]
+  epochs:
+  - {end_time: 0.0, start_size: 4827465.966412271, end_size: 11299.895638606169, size_function: linear}
+- name: Bel
+  ancestors: [Xin_Bel]
+  epochs:
+  - {end_time: 0.0, start_size: 3832.294580788736, end_size: 240152.44741488982, size_function: linear}
+migrations:
+- {source: Tap, dest: Xin, rate: 1.7819931939248884e-06}
+- {source: Tap, dest: Bel, rate: 7.898782956542477e-07}
+- {source: Xin, dest: Bel, rate: 8.237011101567212e-06}
+- {source: Bel, dest: Xin, rate: 4.8861092434919985e-06}
+- {source: Tap, dest: Xin_Bel, rate: 8.460741884472617e-18}
+- {source: Xin_Bel, dest: Tap, rate: 1.2040041562452316e-18}
