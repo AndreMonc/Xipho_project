@@ -1,4 +1,4 @@
-# xipho_ARGs_project
+# Xipho_project
 Repository for data, scripts, notes, and ARG tutorial associated with manuscript on *Xiphorhynchus spixii*
 
 # Notes
