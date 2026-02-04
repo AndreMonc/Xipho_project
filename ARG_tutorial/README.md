@@ -3,10 +3,9 @@
 
 
 # Goal
- Provide a step-by-step example of what goes into setting up and running ARGweaver. I draw heavily on insights/recommendations from Hubisz and Siepel (2020):
+Provide a step-by-step example of what goes into setting up and running ARGweaver. I draw heavily on insights/recommendations from Hubisz and Siepel (2020):
 
-Hubisz M, Siepel A. Inference of ancestral recombination graphs using ARGweaver. Methods Mol Biol.2020; 2090:231–266. https://doi.org/10.1007/978-1-0716-0199-0_10
-
+Hubisz, M., & Siepel, A. (2020). Inference of ancestral recombination graphs using ARGweaver. Pp. 231-266 in: Dutheil, J. Y. (ed). Statistical population genomics. Methods in Molecular Biology, 2090. Humana, New York, NY. https://doi.org/10.1007/978-1-0716-0199-0_10
 
 # Notes
 
