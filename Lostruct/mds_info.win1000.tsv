@@ -1,0 +1,5 @@
+mds_coord	mds	chromosome	start	end	n_outliers	PC1_perc	PC2_perc	betweenSS_perc
+mds06-pos	MDS06	scaffold_2	11603611	12962950	4	25.22	4.33	0.9734
+mds09-neg	MDS09	scaffold_38	1138312	2376952	6	27.94	14.14	0.9672
+mds10-pos	MDS10	scaffold_32	2671647	3230185	2	25.53	8.62	0.9486
+mds36-pos	MDS36	scaffold_43	4575807	7273350	18	34.88	22.41	0.9764

@@ -1,0 +1,95 @@
+2026-04-12 22:27:24.847683: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-04-12 22:27:25.186267: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2026-04-12 22:27:25.529055: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2026-04-12 22:27:25.529559: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-12 22:27:28.773970: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2026-04-12 23:15:29.994462: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-04-12 23:15:29.996957: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2026-04-12 23:15:30.085485: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2026-04-12 23:15:30.085980: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-12 23:15:31.423377: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/amonc/miniforge3/envs/ReLERNN/lib/python3.8/site-packages/keras/src/engine/training.py:3000: UserWarning: You are saving your model as an HDF5 file via `model.save()`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')`.
+  saving_api.save_model(
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Font family ['serif'] not found. Falling back to DejaVu Sans.
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+findfont: Generic family 'serif' not found because none of the following families were found: Times
+2026-04-13 13:08:00.506938: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-04-13 13:08:00.509664: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2026-04-13 13:08:00.565724: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2026-04-13 13:08:00.566181: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-13 13:08:01.823843: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+WARNING:tensorflow:5 out of the last 12 calls to <function Model.make_predict_function.<locals>.predict_function at 0x2b8122ce13a0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 14 calls to <function Model.make_predict_function.<locals>.predict_function at 0x2b81228464c0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.

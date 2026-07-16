@@ -1,0 +1,225 @@
+IQ-TREE multicore version 2.3.6 for Linux x86 64-bit built Aug  1 2024
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor, Heiko Schmidt,
+Dominik Schrempf, Michael Woodhams, Ly Trong Nhan, Thomas Wong
+
+Host:    c961.oscer.ou.edu (AVX2, FMA3, 251 GB RAM)
+Command: iqtree2 -s /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy -st DNA -m MFP+ASC -B 1000 -T 4
+Seed:    521869 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Tue Apr 28 08:57:57 2026
+Kernel:  AVX+FMA - 4 threads (64 CPU cores detected)
+
+Reading alignment file /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy ... Phylip format detected
+Alignment most likely contains protein sequences
+WARNING: Your specified sequence type is different from the detected one
+Alignment has 34 sequences with 2778634 columns, 2775839 distinct patterns
+1733177 parsimony-informative, 1045457 singleton sites, 0 constant sites
+                        Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 0.29156 secs using 389.8% CPU
+   1  XELEGANS_MPEG75162_Mus   40.39%    failed      0.00%
+   2  Bel_xsFRC041_Mus         34.19%    failed      0.00%
+   3  Bel_xsGUR156_Mus         36.73%    failed      0.00%
+   4  Bel_xsLCA23_Mus          30.96%    failed      0.00%
+   5  Bel_xsMLV157_Mus         40.86%    failed      0.00%
+   6  Bel_xsRDP017_Mus         34.56%    failed      0.00%
+   7  Bel_xsREBIO002_Mus       43.73%    failed      0.00%
+   8  Bel_xsTP32151_Toe        28.71%    failed      0.00%
+   9  Bel_xsTP37350_Toe        28.12%    failed      0.00%
+  10  Bel_xsTP38597_Toe        29.80%    failed      0.00%
+  11  Bel_xsTP51965_Toe        31.15%    failed      0.00%
+  12  Tap_xsA08267_Mus         35.76%    failed      0.00%
+  13  Tap_xsBR163-028_Mus      32.02%    failed      0.00%
+  14  Tap_xsBR163-145_Mus      34.84%    failed      0.00%
+  15  Tap_xsBR163-212_Mus      32.82%    failed      0.00%
+  16  Tap_xsMPDS1217_Mus       40.66%    failed      0.00%
+  17  Tap_xsMPDS1294_Mus       37.94%    failed      0.05%
+  18  Tap_xsMSF111_Mus         34.08%    failed      0.00%
+  19  Tap_xsPIME217_Mus        36.80%    failed      0.00%
+  20  Tap_xsSER013_Mus         29.93%    failed      0.00%
+  21  Tap_xsTM005_Mus          43.65%    failed      0.00%
+  22  Xin_xsCOUFT0424_Mus      31.42%    failed      0.00%
+  23  Xin_xsFTA012_Mus         41.08%    failed      0.00%
+  24  Xin_xsGAPTO037_Mus       37.08%    failed      0.00%
+  25  Xin_xsGAPTO271_Mus       52.20%    failed      0.00%
+  26  Xin_xsGAPX047_Mus        31.55%    failed      0.00%
+  27  Xin_xsMAYA066_Mus        42.64%    failed      0.00%
+  28  Xin_xsMOP011_Mus         41.88%    failed      0.00%
+  29  Xin_xsMRJ498_Mus         37.28%    failed      0.00%
+  30  Xin_xsTP36025_Toe        30.26%    failed      0.00%
+  31  Xin_xsTP36276_Toe        31.05%    failed      0.00%
+  32  Xin_xsTP48649_Toe        30.08%    failed      0.00%
+  33  Xin_xsTP81164_Toe        46.21%    failed      0.00%
+  34  Xin_xsUHE455_Mus         34.38%    failed      0.00%
+WARNING: 1 sequences contain more than 50% gaps/ambiguity
+****  TOTAL                    36.02%  34 sequences failed composition chi2 test (p-value<5%; df=3)
+NOTE: minimal branch length is reduced to 0.000000035989 for long alignment
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 6.709 seconds
+Perform fast likelihood tree search using GTR+ASC model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -31794561.374
+2. Current log-likelihood: -31794549.825
+Optimal log-likelihood: -31794549.651
+Rate parameters:  A-C: 0.99332  A-G: 5.29375  A-T: 0.94908  C-G: 1.06165  C-T: 5.25908  G-T: 1.00000
+Base frequencies:  A: 0.225  C: 0.277  G: 0.269  T: 0.228
+Parameters optimization took 2 rounds (19.983 sec)
+Time for fast ML tree search: 118.054 seconds
+
+NOTE: ModelFinder requires 41191 MB RAM!
+ModelFinder will test up to 242 DNA models (sample size: 2778634 epsilon: 0.100) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  GTR+F+ASC     31794549.493 73  63589244.986 63589244.990 63590182.122
+  2  GTR+F+ASC+G4  31560947.215 74  63122042.429 63122042.433 63122992.402
+  3  GTR+F+ASC+R2  31559653.284 75  63119456.567 63119456.571 63120419.378
++R3 reinitialized from +R2 with factor 0.500
++R3 reinitialized from +R2 with factor 0.250
++R3 reinitialized from +R2 with factor 0.125
++R3 reinitialized from +R2 with factor 0.062
++R3 reinitialized from +R2 with factor 0.031
+  4  GTR+F+ASC+R3  31559654.242 77  63119462.485 63119462.489 63120450.970
+ 14  SYM+ASC+R2    31581455.697 72  63163055.394 63163055.398 63163979.692
+ 25  TVM+F+ASC+R2  31559659.668 74  63119467.336 63119467.340 63120417.309
+ 36  TVMe+ASC+R2   31581659.578 71  63163461.156 63163461.160 63164372.617
+ 47  TIM3+F+ASC+R2 31560282.070 73  63120710.140 63120710.144 63121647.275
+ 58  TIM3e+ASC+R2  31589589.085 70  63179318.170 63179318.174 63180216.793
+ 69  TIM2+F+ASC+R2 31560117.245 73  63120380.490 63120380.493 63121317.625
+ 80  TIM2e+ASC+R2  31590095.364 70  63180330.729 63180330.732 63181229.352
+ 91  TIM+F+ASC+R2  31560669.009 73  63121484.019 63121484.023 63122421.154
+102  TIMe+ASC+R2   31597884.441 70  63195908.883 63195908.886 63196807.506
+113  TPM3u+F+ASC+R2 31560288.559 72  63120721.117 63120721.121 63121645.415
+124  TPM3+ASC+R2   31589816.054 69  63179770.108 63179770.111 63180655.893
+135  TPM2u+F+ASC+R2 31560122.941 72  63120389.882 63120389.886 63121314.180
+146  TPM2+ASC+R2   31590272.964 69  63180683.928 63180683.931 63181569.713
+157  K3Pu+F+ASC+R2 31560675.007 72  63121494.014 63121494.018 63122418.312
+168  K3P+ASC+R2    31598083.792 69  63196305.584 63196305.587 63197191.369
+179  TN+F+ASC+R2   31560733.969 72  63121611.938 63121611.941 63122536.235
+190  TNe+ASC+R2    31598185.367 69  63196508.734 63196508.738 63197394.520
+201  HKY+F+ASC+R2  31560739.992 71  63121621.985 63121621.988 63122533.445
+212  K2P+ASC+R2    31598384.651 68  63196905.303 63196905.306 63197778.251
+223  F81+F+ASC+R2  33579737.814 70  67159615.628 67159615.632 67160514.251
+234  JC+ASC+R2     33592570.841 67  67185275.682 67185275.685 67186135.792
+Akaike Information Criterion:           GTR+F+ASC+R2
+Corrected Akaike Information Criterion: GTR+F+ASC+R2
+Bayesian Information Criterion:         TVM+F+ASC+R2
+Best-fit model: TVM+F+ASC+R2 chosen according to BIC
+
+All model information printed to /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.model.gz
+CPU time for ModelFinder: 33699.123 seconds (9h:21m:39s)
+Wall-clock time for ModelFinder: 9206.502 seconds (2h:33m:26s)
+Generating 1000 samples for ultrafast bootstrap (seed: 521869)...
+
+NOTE: 16709 MB RAM (16 GB) is required!
+WARNING: Memory required per CPU-core (4.07946 GB) is higher than your computer RAM per CPU-core (3 GB), thus multiple runs may exceed RAM!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -33579742.177
+2. Current log-likelihood: -31577912.697
+3. Current log-likelihood: -31566507.803
+4. Current log-likelihood: -31562276.019
+5. Current log-likelihood: -31560736.632
+6. Current log-likelihood: -31560074.424
+7. Current log-likelihood: -31559832.147
+8. Current log-likelihood: -31559733.873
+9. Current log-likelihood: -31559692.301
+10. Current log-likelihood: -31559675.472
+11. Current log-likelihood: -31559662.564
+12. Current log-likelihood: -31559660.690
+13. Current log-likelihood: -31559659.830
+14. Current log-likelihood: -31559659.487
+15. Current log-likelihood: -31559659.361
+Optimal log-likelihood: -31559659.231
+Rate parameters:  A-C: 0.99222  A-G: 5.54406  A-T: 0.95409  C-G: 1.05641  C-T: 5.54406  G-T: 1.00000
+Base frequencies:  A: 0.225  C: 0.277  G: 0.269  T: 0.228
+Site proportion and rates:  (0.648,0.454) (0.352,2.005)
+Parameters optimization took 15 rounds (480.811 sec)
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 3.1526 secs using 397.5% CPU
+Computing ML distances took 3.596283 sec (of wall-clock time) 13.903516 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 8.6411e-05 secs using 320.6% CPU
+Computing RapidNJ tree took 0.000274 sec (of wall-clock time) 0.000505 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -31584458.753
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 934.102 second
+Computing log-likelihood of 98 initial trees ... 653.254 seconds
+Current best score: -31559659.231
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -31559659.178
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 3: -31559272.522
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 6: -31555189.889
+Iteration 10 / LogL: -31560395.563 / Time: 3h:38m:5s
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 19: -31554816.641
+Iteration 20 / LogL: -31561335.070 / Time: 4h:6m:48s
+Finish initializing candidate tree set (18)
+Current best tree score: -31554816.641 / CPU time: 4970.385
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -31569373.007 / Time: 4h:21m:40s (5h:32m:9s left)
+Iteration 40 / LogL: -31555905.581 / Time: 4h:33m:50s (4h:3m:53s left)
+Iteration 50 / LogL: -31554879.581 / Time: 4h:45m:15s (3h:5m:36s left)
+Log-likelihood cutoff on original alignment: -31556384.348
+Iteration 60 / LogL: -31556873.519 / Time: 4h:58m:50s (2h:25m:23s left)
+Iteration 70 / LogL: -31558520.219 / Time: 5h:11m:41s (1h:52m:22s left)
+Iteration 80 / LogL: -31559195.808 / Time: 5h:23m:16s (1h:23m:50s left)
+Iteration 90 / LogL: -31557889.242 / Time: 5h:36m:40s (0h:59m:42s left)
+Iteration 100 / LogL: -31559458.472 / Time: 5h:52m:52s (0h:38m:16s left)
+Log-likelihood cutoff on original alignment: -31556384.348
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.992
+Iteration 110 / LogL: -31564740.068 / Time: 6h:9m:12s (2h:58m:9s left)
+Iteration 120 / LogL: -31563202.977 / Time: 6h:24m:11s (2h:35m:7s left)
+TREE SEARCH COMPLETED AFTER 120 ITERATIONS / Time: 6h:24m:11s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -31554816.641
+2. Current log-likelihood: -31554816.625
+3. Current log-likelihood: -31554816.609
+4. Current log-likelihood: -31554816.584
+5. Current log-likelihood: -31554816.565
+Optimal log-likelihood: -31554816.563
+Rate parameters:  A-C: 0.99220  A-G: 5.53558  A-T: 0.95437  C-G: 1.05548  C-T: 5.53558  G-T: 1.00000
+Base frequencies:  A: 0.225  C: 0.277  G: 0.269  T: 0.228
+Site proportion and rates:  (0.647,0.452) (0.353,2.006)
+Parameters optimization took 5 rounds (115.653 sec)
+BEST SCORE FOUND : -31554816.563
+Creating bootstrap support values...
+Split supports printed to NEXUS file /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.splits.nex
+Total tree length: 2.686
+
+Total number of iterations: 120
+CPU time used for tree search: 48769.380 sec (13h:32m:49s)
+Wall-clock time used for tree search: 13213.018 sec (3h:40m:13s)
+Total CPU time used: 85097.524 sec (23h:38m:17s)
+Total wall-clock time used: 23168.309 sec (6h:26m:8s)
+
+Computing bootstrap consensus tree...
+Reading input file /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.splits.nex...
+34 taxa and 98 splits.
+Consensus tree written to /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.contree
+Reading input trees file /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.contree
+Log-likelihood of consensus tree: -31554816.563
+
+Analysis results written to: 
+  IQ-TREE report:                /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.iqtree
+  Maximum-likelihood tree:       /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.treefile
+  Likelihood distances:          /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.splits.nex
+  Consensus tree:                /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.contree
+  Screen log file:               /scratch/amonc/xipho_revision/iqtree/vcf2phylip/xipho.min4.phy.varsites.phy.log
+
+Date and Time: Tue Apr 28 15:25:18 2026
