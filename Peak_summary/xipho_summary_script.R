@@ -57,14 +57,14 @@ CREATE_FIGURES_PDFS <- FALSE
 #   1) uncolored all-peaks plot,
 #   2) bars colored by the at-least-one-tree model assignments, and
 #   3) bars colored by the >=25% model assignments.
-CREATE_PEAK_SIZE_DISTRIBUTION_PDFS <- TRUE
+CREATE_PEAK_SIZE_DISTRIBUTION_PDFS <- FALSE
 
 # Peak-by-peak Manhattan PDFs: independent controls for each model-assignment
 # method and for the 2000th-iteration versus multi-iteration plot sets.
 CREATE_MANHATTAN_ANY_SINGLE_ITER_PDFS <- FALSE
 CREATE_MANHATTAN_MIN25_SINGLE_ITER_PDFS <- FALSE
 CREATE_MANHATTAN_ANY_MULTI_ITER_PDFS <- FALSE
-CREATE_MANHATTAN_MIN25_MULTI_ITER_PDFS <- FALSE
+CREATE_MANHATTAN_MIN25_MULTI_ITER_PDFS <- TRUE
 
 pixy_file <- file.path(
   "..",
@@ -2688,7 +2688,7 @@ plot_single_tree_panel <- function(tree_row) {
     phy,
     type = "phylogram",
     show.tip.label = TRUE,
-    cex = 0.35,
+    cex = 0.55,
     edge.width = 0.55,
     no.margin = FALSE
   )
@@ -8763,7 +8763,7 @@ if (nrow(arg_cc_control_sample) >= 2) {
     arg_cc_control_sample$Tap_Xin_JCR_v2,
     arg_cc_control_sample$Xin_Bel_CC_original,
     pch = 16,
-    cex = 0.35,
+    cex = 0.55,
     xlab = "Tapajos-Xingu JCR v2",
     ylab = "Xingu-Belem RCC",
     main = paste0(
