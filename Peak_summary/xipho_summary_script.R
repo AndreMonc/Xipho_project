@@ -64,7 +64,28 @@ CREATE_PEAK_SIZE_DISTRIBUTION_PDFS <- FALSE
 CREATE_MANHATTAN_ANY_SINGLE_ITER_PDFS <- FALSE
 CREATE_MANHATTAN_MIN25_SINGLE_ITER_PDFS <- FALSE
 CREATE_MANHATTAN_ANY_MULTI_ITER_PDFS <- FALSE
-CREATE_MANHATTAN_MIN25_MULTI_ITER_PDFS <- TRUE
+CREATE_MANHATTAN_MIN25_MULTI_ITER_PDFS <- FALSE
+
+# Controls the slow genome-wide summaries across all 50 saved ARG MCMC
+# iterations (1510-2000 every 10 iterations), including their output tables
+# and the 50-iteration model/statistic summaries. This does NOT control the
+# independently switched multi-iteration Manhattan PDF generation.
+RUN_MULTI_ITER_ARG_SUMMARIES <- FALSE
+
+
+# -----------------------------
+# Fst-peak vs. control-region significance subsampling
+# -----------------------------
+# Run matched-control subsampling for every genomic statistic that already has
+# a peak-level TRUE/FALSE significance designation in the comprehensive tables.
+RUN_FST_PEAK_CONTROL_SUBSAMPLING <- TRUE
+
+# Number of independent null datasets. Increase this value later for more
+# precise tail probabilities/critical values.
+CONTROL_SUBSAMPLING_N <- 10000L
+
+# Fixed seed makes the subsampling exactly reproducible.
+CONTROL_SUBSAMPLING_SEED <- 24680L
 
 pixy_file <- file.path(
   "..",
@@ -105,6 +126,7 @@ arg_coverage_dir <- file.path(output_dir, "ARG_coverage")
 arg_diagnostics_dir <- file.path(output_dir, "ARG_diagnostics")
 heatmap_dir <- file.path(output_dir, "Heatmap")
 figures_dir <- file.path(output_dir, "figures")
+tables_dir <- file.path(output_dir, "tables")
 
 for (dir_to_make in c(
   fst_outlier_dir,
@@ -113,7 +135,8 @@ for (dir_to_make in c(
   arg_coverage_dir,
   arg_diagnostics_dir,
   heatmap_dir,
-  figures_dir
+  figures_dir,
+  tables_dir
 )) {
   dir.create(dir_to_make, showWarnings = FALSE, recursive = TRUE)
 }
@@ -676,9 +699,596 @@ model_category_definitions_tsv <- file.path(
   "ARGweaver_peak_model_category_definitions.tsv"
 )
 
+
+fst_peak_control_subsampling_any_file <- file.path(
+  tables_dir,
+  "Fst_peak_significance_overrepresentation_control_subsampling.at_least_one_tree_signif_in_peak.tsv"
+)
+
+fst_peak_control_subsampling_min25_file <- file.path(
+  tables_dir,
+  "Fst_peak_significance_overrepresentation_control_subsampling.25perc_trees_signif_in_peak.tsv"
+)
+
 # -----------------------------
 # Helper functions
 # -----------------------------
+
+# Summarize one ARG statistic in every Xin-Bel Fst control window. This uses the
+# same local-tree significance rule used for the empirical Fst peaks.
+make_ARG_control_window_status <- function(
+  arg_joined_dt,
+  control_windows_dt,
+  stat,
+  threshold,
+  tail,
+  min_prop = NA_real_
+) {
+  if (!stat %in% names(arg_joined_dt)) {
+    stop("Statistic is absent from arg_joined_dt: ", stat)
+  }
+  if (length(threshold) == 0 || is.na(threshold)) {
+    stop("Missing significance threshold for control subsampling statistic: ", stat)
+  }
+
+  control_ref <- control_windows_dt[, .(
+    chromosome,
+    start = as.integer(start),
+    end = as.integer(end),
+    window_id = paste(chromosome, start, end, sep = ":")
+  )]
+
+  tmp <- arg_joined_dt[
+    window_class == "control" &
+      !is.na(get(stat)),
+    .(
+      n_local_trees = .N,
+      n_significant_local_trees = if (tail == "upper") {
+        sum(get(stat) >= threshold)
+      } else if (tail == "lower") {
+        sum(get(stat) <= threshold)
+      } else {
+        stop("Unexpected tail value: ", tail)
+      }
+    ),
+    by = .(chromosome, window_start, window_end, window_id)
+  ]
+
+  if (nrow(tmp) > 0) {
+    setnames(
+      tmp,
+      old = c("window_start", "window_end"),
+      new = c("start", "end")
+    )
+  }
+
+  out <- merge(
+    control_ref,
+    tmp,
+    by = c("chromosome", "start", "end", "window_id"),
+    all.x = TRUE,
+    sort = FALSE
+  )
+
+  out[is.na(n_local_trees), n_local_trees := 0L]
+  out[is.na(n_significant_local_trees), n_significant_local_trees := 0L]
+
+  out[, informative := n_local_trees > 0L]
+  out[, prop_significant_local_trees := fifelse(
+    informative,
+    n_significant_local_trees / n_local_trees,
+    NA_real_
+  )]
+
+  if (is.na(min_prop)) {
+    out[, is_significant := informative & n_significant_local_trees >= 1L]
+  } else {
+    out[, is_significant :=
+          informative &
+          n_significant_local_trees >= 1L &
+          !is.na(prop_significant_local_trees) &
+          prop_significant_local_trees >= min_prop]
+  }
+
+  setorder(out, chromosome, start, end)
+  out[]
+}
+
+
+
+# Build significance/informativeness flags for statistics that are already
+# represented by one value per pixy control window.
+make_aligned_control_window_status <- function(
+  control_windows_dt,
+  stat,
+  threshold,
+  tail,
+  use_abs = FALSE
+) {
+  out <- control_windows_dt[, .(
+    chromosome,
+    start = as.integer(start),
+    end = as.integer(end),
+    window_id = paste(chromosome, start, end, sep = ":"),
+    value = as.numeric(get(stat))
+  )]
+
+  out[, informative := !is.na(value)]
+
+  if (use_abs) {
+    out[, is_significant := informative & abs(value) > threshold]
+  } else if (tail == "upper") {
+    out[, is_significant := informative & value > threshold]
+  } else if (tail == "lower") {
+    out[, is_significant := informative & value < threshold]
+  } else {
+    stop("Unexpected tail value: ", tail)
+  }
+
+  out[, `:=`(
+    n_values = as.integer(informative),
+    n_significant_values = as.integer(is_significant)
+  )]
+
+  out[, .(
+    chromosome, start, end, window_id,
+    n_values, n_significant_values,
+    informative, is_significant
+  )]
+}
+
+
+# Build control-window significance flags from raw interval records. A control
+# window is informative if at least one retained raw value overlaps it, and is
+# significant if at least one overlapping value passes the same rule used for
+# Fst-peak significance.
+make_raw_interval_control_window_status <- function(
+  dt,
+  stat,
+  control_windows_dt,
+  threshold = NA_real_,
+  tail = "upper",
+  use_abs = FALSE,
+  nonzero_is_significant = FALSE
+) {
+  control_ref <- control_windows_dt[, .(
+    chromosome = standardize_scaffold_names(chromosome),
+    start = as.integer(start),
+    end = as.integer(end),
+    window_end_inclusive = as.integer(end - 1L),
+    window_id = paste(chromosome, start, end, sep = ":")
+  )]
+
+  tmp <- copy(dt)
+  tmp[, chromosome := standardize_scaffold_names(chromosome)]
+  tmp <- tmp[!is.na(get(stat))]
+  tmp[, interval_start := as.integer(interval_start)]
+  tmp[, interval_end_inclusive := as.integer(interval_end - 1L)]
+  tmp <- tmp[interval_end_inclusive >= interval_start]
+
+  if (nrow(tmp) == 0) {
+    return(control_ref[, .(
+      chromosome, start, end, window_id,
+      n_values = 0L,
+      n_significant_values = 0L,
+      informative = FALSE,
+      is_significant = FALSE
+    )])
+  }
+
+  if (nonzero_is_significant) {
+    tmp[, raw_is_significant := get(stat) != 0]
+  } else if (use_abs) {
+    tmp[, raw_is_significant := abs(get(stat)) > threshold]
+  } else if (tail == "upper") {
+    tmp[, raw_is_significant := get(stat) > threshold]
+  } else if (tail == "lower") {
+    tmp[, raw_is_significant := get(stat) < threshold]
+  } else {
+    stop("Unexpected tail value: ", tail)
+  }
+
+  setkey(tmp, chromosome, interval_start, interval_end_inclusive)
+  setkey(control_ref, chromosome, start, window_end_inclusive)
+
+  hits <- foverlaps(
+    tmp[, .(
+      chromosome,
+      interval_start,
+      interval_end_inclusive,
+      raw_is_significant
+    )],
+    control_ref,
+    by.x = c("chromosome", "interval_start", "interval_end_inclusive"),
+    by.y = c("chromosome", "start", "window_end_inclusive"),
+    nomatch = 0
+  )
+
+  status <- hits[, .(
+    n_values = .N,
+    n_significant_values = sum(raw_is_significant, na.rm = TRUE)
+  ), by = window_id]
+
+  out <- merge(
+    control_ref[, .(chromosome, start, end, window_id)],
+    status,
+    by = "window_id",
+    all.x = TRUE,
+    sort = FALSE
+  )
+
+  out[is.na(n_values), n_values := 0L]
+  out[is.na(n_significant_values), n_significant_values := 0L]
+  out[, informative := n_values > 0L]
+  out[, is_significant := informative & n_significant_values > 0L]
+  out[]
+}
+
+
+make_raw_point_control_window_status <- function(
+  dt,
+  stat,
+  control_windows_dt,
+  threshold = NA_real_,
+  tail = "upper",
+  use_abs = FALSE,
+  nonzero_is_significant = FALSE
+) {
+  tmp <- copy(dt)
+  tmp[, interval_start := as.integer(pos)]
+  tmp[, interval_end := as.integer(pos + 1L)]
+  make_raw_interval_control_window_status(
+    dt = tmp,
+    stat = stat,
+    control_windows_dt = control_windows_dt,
+    threshold = threshold,
+    tail = tail,
+    use_abs = use_abs,
+    nonzero_is_significant = nonzero_is_significant
+  )
+}
+
+
+# ARG-based branch-Fst values are raw point records, but the >=25% assignment
+# rule is based on the proportion of significant point/local-tree values within
+# each control window. This helper mirrors that rule.
+make_point_proportion_control_window_status <- function(
+  dt,
+  stat,
+  control_windows_dt,
+  threshold,
+  tail,
+  min_prop = NA_real_,
+  inclusive_threshold = FALSE
+) {
+  control_ref <- control_windows_dt[, .(
+    chromosome = standardize_scaffold_names(chromosome),
+    start = as.integer(start),
+    end = as.integer(end),
+    window_end_inclusive = as.integer(end - 1L),
+    window_id = paste(chromosome, start, end, sep = ":")
+  )]
+
+  tmp <- copy(dt)
+  tmp[, chromosome := standardize_scaffold_names(chromosome)]
+  tmp <- tmp[!is.na(get(stat))]
+  tmp[, point_start := as.integer(pos)]
+  tmp[, point_end := as.integer(pos)]
+
+  if (tail == "upper") {
+    if (inclusive_threshold) {
+      tmp[, point_is_significant := get(stat) >= threshold]
+    } else {
+      tmp[, point_is_significant := get(stat) > threshold]
+    }
+  } else if (tail == "lower") {
+    if (inclusive_threshold) {
+      tmp[, point_is_significant := get(stat) <= threshold]
+    } else {
+      tmp[, point_is_significant := get(stat) < threshold]
+    }
+  } else {
+    stop("Unexpected tail value: ", tail)
+  }
+
+  if (nrow(tmp) == 0) {
+    return(control_ref[, .(
+      chromosome, start, end, window_id,
+      n_local_trees = 0L,
+      n_significant_local_trees = 0L,
+      prop_significant_local_trees = NA_real_,
+      informative = FALSE,
+      is_significant = FALSE
+    )])
+  }
+
+  setkey(tmp, chromosome, point_start, point_end)
+  setkey(control_ref, chromosome, start, window_end_inclusive)
+
+  hits <- foverlaps(
+    tmp[, .(chromosome, point_start, point_end, point_is_significant)],
+    control_ref,
+    by.x = c("chromosome", "point_start", "point_end"),
+    by.y = c("chromosome", "start", "window_end_inclusive"),
+    nomatch = 0
+  )
+
+  status <- hits[, .(
+    n_local_trees = .N,
+    n_significant_local_trees = sum(point_is_significant, na.rm = TRUE)
+  ), by = window_id]
+
+  out <- merge(
+    control_ref[, .(chromosome, start, end, window_id)],
+    status,
+    by = "window_id",
+    all.x = TRUE,
+    sort = FALSE
+  )
+
+  out[is.na(n_local_trees), n_local_trees := 0L]
+  out[is.na(n_significant_local_trees), n_significant_local_trees := 0L]
+  out[, informative := n_local_trees > 0L]
+  out[, prop_significant_local_trees := fifelse(
+    informative,
+    n_significant_local_trees / n_local_trees,
+    NA_real_
+  )]
+
+  if (is.na(min_prop)) {
+    out[, is_significant := informative & n_significant_local_trees >= 1L]
+  } else {
+    out[, is_significant :=
+          informative &
+          n_significant_local_trees >= 1L &
+          !is.na(prop_significant_local_trees) &
+          prop_significant_local_trees >= min_prop]
+  }
+
+  out[]
+}
+
+
+# Append one statistic column to a wide subsampling output table while retaining
+# the single Descriptor column requested for the final TSV files.
+append_control_subsampling_column <- function(
+  output_dt,
+  statistic_column_name,
+  statistic_display_name,
+  empirical_count,
+  subsample_counts
+) {
+  col_dt <- make_control_subsampling_output_column(
+    statistic_name = statistic_display_name,
+    empirical_count = empirical_count,
+    subsample_counts = subsample_counts
+  )
+  setnames(col_dt, "value", statistic_column_name)
+
+  if (is.null(output_dt)) {
+    return(col_dt)
+  }
+
+  merge(
+    output_dt,
+    col_dt,
+    by = "Descriptor",
+    all = TRUE,
+    sort = FALSE
+  )
+}
+
+
+# Enumerate every contiguous region made exclusively from Fst control windows
+# that exactly matches a requested empirical peak length.
+#
+# A candidate region is retained only if it contains at least one informative
+# control window for the statistic being evaluated. Individual windows within
+# the region are allowed to lack values; this mirrors the peak analysis, where
+# a peak can remain informative when ARG data exist in only part of the peak.
+enumerate_exact_length_control_regions <- function(
+  control_status_dt,
+  region_length_bp
+) {
+  if (nrow(control_status_dt) == 0) {
+    return(data.table())
+  }
+
+  dt <- copy(control_status_dt)
+  setorder(dt, chromosome, start, end)
+
+  # A new run begins whenever adjacent control windows are not directly
+  # contiguous. Therefore every candidate below consists only of uninterrupted
+  # control windows; intermediate/outlier windows cannot occur inside it.
+  dt[, previous_end := shift(end), by = chromosome]
+  dt[, new_control_run :=
+       is.na(previous_end) | start != previous_end,
+     by = chromosome]
+  dt[, control_run_id := cumsum(new_control_run)]
+  dt[, previous_end := NULL]
+
+  dt[, run_index := seq_len(.N), by = .(chromosome, control_run_id)]
+  dt[, cum_informative := cumsum(as.integer(informative)),
+     by = .(chromosome, control_run_id)]
+  dt[, cum_significant := cumsum(as.integer(is_significant)),
+     by = .(chromosome, control_run_id)]
+
+  starts <- dt[, .(
+    start_index = run_index,
+    region_start = start,
+    start_cum_informative_before =
+      shift(cum_informative, fill = 0L),
+    start_cum_significant_before =
+      shift(cum_significant, fill = 0L)
+  ), by = .(chromosome, control_run_id)]
+
+  starts[, target_end := as.integer(region_start + region_length_bp)]
+
+  ends <- dt[, .(
+    chromosome,
+    control_run_id,
+    end_index = run_index,
+    target_end = end,
+    end_cum_informative = cum_informative,
+    end_cum_significant = cum_significant
+  )]
+
+  candidates <- merge(
+    starts,
+    ends,
+    by = c("chromosome", "control_run_id", "target_end"),
+    all = FALSE,
+    sort = FALSE
+  )
+
+  candidates <- candidates[end_index >= start_index]
+  if (nrow(candidates) == 0) {
+    return(data.table())
+  }
+
+  candidates[, n_informative_windows :=
+               end_cum_informative - start_cum_informative_before]
+  candidates[, n_significant_windows :=
+               end_cum_significant - start_cum_significant_before]
+
+  candidates <- candidates[n_informative_windows > 0L]
+
+  candidates[, `:=`(
+    region_end = target_end,
+    region_length_bp = as.integer(region_length_bp),
+    region_is_significant = n_significant_windows > 0L
+  )]
+
+  candidates[, .(
+    chromosome,
+    region_start,
+    region_end,
+    region_length_bp,
+    n_informative_windows,
+    n_significant_windows,
+    region_is_significant
+  )]
+}
+
+
+# Generate the null distribution for one statistic/assignment method.
+#
+# Each null replicate contains exactly one sampled control region for every
+# empirical Fst peak, preserving the complete empirical peak-length
+# distribution. Sampling is with replacement, as requested.
+subsample_control_regions_matching_Fst_peak_sizes <- function(
+  peaks_dt,
+  control_status_dt,
+  n_subsamples = 10000L,
+  seed = 1L
+) {
+  peak_lengths <- as.integer(peaks_dt$end - peaks_dt$start)
+
+  # The caller supplies the empirical peak set to be matched. In the current
+  # overrepresentation analysis this is the 141 Fst peaks with ARG-based data.
+  # Every null replicate therefore inherits exactly the number and length
+  # distribution of the supplied empirical peaks.
+  if (length(peak_lengths) == 0L) {
+    stop("No empirical Fst peaks were supplied for matched-control subsampling.")
+  }
+
+  unique_lengths <- sort(unique(peak_lengths))
+
+  candidate_by_length <- setNames(
+    lapply(unique_lengths, function(len) {
+      enumerate_exact_length_control_regions(
+        control_status_dt = control_status_dt,
+        region_length_bp = len
+      )
+    }),
+    as.character(unique_lengths)
+  )
+
+  n_candidates_by_length <- vapply(
+    candidate_by_length,
+    nrow,
+    integer(1)
+  )
+
+  missing_lengths <- unique_lengths[n_candidates_by_length == 0L]
+  if (length(missing_lengths) > 0L) {
+    stop(
+      "No informative contiguous control region could be found for the ",
+      "following empirical Fst peak length(s): ",
+      paste(missing_lengths, collapse = ", "),
+      " bp. Exact size matching therefore cannot be completed."
+    )
+  }
+
+  set.seed(seed)
+
+  subsample_counts <- integer(n_subsamples)
+
+  for (subsample_i in seq_len(n_subsamples)) {
+    sampled_significance <- logical(length(peak_lengths))
+
+    for (peak_i in seq_along(peak_lengths)) {
+      candidate_dt <- candidate_by_length[[as.character(peak_lengths[peak_i])]]
+      sampled_row <- sample.int(nrow(candidate_dt), size = 1L)
+      sampled_significance[peak_i] <-
+        candidate_dt$region_is_significant[sampled_row]
+    }
+
+    # Every replicate contains the same number and exact size distribution of
+    # regions as the empirical Fst-peak dataset.
+    if (length(sampled_significance) != nrow(peaks_dt)) {
+      stop("Internal error: sampled control-region count does not match Fst peak count.")
+    }
+
+    subsample_counts[subsample_i] <- sum(sampled_significance)
+  }
+
+  list(
+    subsample_counts = subsample_counts,
+    candidate_counts_by_length = data.table(
+      region_length_bp = unique_lengths,
+      n_candidate_control_regions = n_candidates_by_length
+    )
+  )
+}
+
+
+# Convert one null distribution into the requested column format.
+# The P thresholds are upper-tail critical values because the focal hypothesis
+# is overrepresentation of significant regions inside Fst peaks.
+make_control_subsampling_output_column <- function(
+  statistic_name,
+  empirical_count,
+  subsample_counts
+) {
+  critical_values <- as.integer(quantile(
+    subsample_counts,
+    probs = c(0.95, 0.99, 0.999),
+    type = 1,
+    names = FALSE
+  ))
+
+  data.table(
+    Descriptor = c(
+      "Statistic_name",
+      "Empirical_count",
+      "P_0.05_threshold",
+      "P_0.01_threshold",
+      "P_0.001_threshold",
+      paste0("Subsample ", seq_along(subsample_counts))
+    ),
+    value = c(
+      statistic_name,
+      as.character(empirical_count),
+      as.character(critical_values[1]),
+      as.character(critical_values[2]),
+      as.character(critical_values[3]),
+      as.character(subsample_counts)
+    )
+  )
+}
+
+
 safe_inverse <- function(x) {
   y <- rep(NA_real_, length(x))
   y[!is.na(x) & x != 0] <- 1 / x[!is.na(x) & x != 0]
@@ -9492,6 +10102,664 @@ fwrite(model_assignment_min25, model_assignment_min25_file, sep = "\t")
 fwrite(model_assignment_min25_summary, model_assignment_min25_summary_file, sep = "\t")
 
 
+# =============================================================
+# Fst-peak significance overrepresentation vs. matched control regions
+# All peak-level genomic significance statistics
+# =============================================================
+if (isTRUE(RUN_FST_PEAK_CONTROL_SUBSAMPLING)) {
+
+  # -----------------------------------------------------------
+  # Empirical peak set used for ALL overrepresentation tests
+  # -----------------------------------------------------------
+  #
+  # Restrict the empirical comparison to Fst peaks that contain any ARG-based
+  # data. This is the same ARG-coverage definition used elsewhere in the script
+  # for deciding whether a peak can be evaluated for ARG-based model support.
+  #
+  # Importantly, this restriction is applied to EVERY statistic in the
+  # overrepresentation analysis, including non-ARG statistics that may have data
+  # for all 159 Fst peaks. This keeps the empirical denominator and the peak-size
+  # distribution identical across ARG and non-ARG statistics.
+  subsampling_peak_ids <- arg_peak_ARG_coverage[
+    has_any_ARG_based_data == TRUE,
+    peak_id
+  ]
+
+  subsampling_peaks <- peaks[
+    peak_id %in% subsampling_peak_ids
+  ]
+  setorder(subsampling_peaks, chromosome, start, end)
+
+  # The current dataset is expected to contain 141 Fst peaks with ARG-based
+  # data. Stop if that number changes so that an upstream coverage change does
+  # not silently alter the null sampling design.
+  if (nrow(subsampling_peaks) != 141L) {
+    stop(
+      "Expected 141 Fst peaks with ARG-based data for overrepresentation ",
+      "subsampling, but found ", nrow(subsampling_peaks), "."
+    )
+  }
+
+  # Filter both comprehensive empirical significance tables to exactly these
+  # same 141 peak IDs. Thus empirical counts for every statistic are based on
+  # the identical set of peaks used to define the null peak-length distribution.
+  model_assignment_any_subsampling <- model_assignment_any[
+    peak_id %in% subsampling_peak_ids
+  ]
+  model_assignment_min25_subsampling <- model_assignment_min25[
+    peak_id %in% subsampling_peak_ids
+  ]
+
+  if (nrow(model_assignment_any_subsampling) != 141L ||
+      nrow(model_assignment_min25_subsampling) != 141L) {
+    stop(
+      "The comprehensive empirical significance tables do not contain exactly ",
+      "the expected 141 ARG-covered Fst peaks."
+    )
+  }
+
+  cat(
+    "Matched-control overrepresentation analysis restricted to ",
+    nrow(subsampling_peaks),
+    " Fst peaks with ARG-based data.\n",
+    sep = ""
+  )
+
+  # Each statistic is represented once. Bookkeeping/model-category booleans and
+  # duplicate selection-statistic flags are intentionally excluded.
+  #
+  # NOTE: Xin_Bel_Fst is included because the comprehensive peak table contains
+  # an explicit TRUE/FALSE significance designation for it. Its enrichment test
+  # is circular by construction because Xin_Bel_Fst itself defines the peaks;
+  # interpret that column only as a pipeline sanity check, not as an independent
+  # biological enrichment test.
+
+  subsampling_table_any <- NULL
+  subsampling_table_min25 <- NULL
+
+  stat_index <- 0L
+
+  run_one_subsampling_stat <- function(
+    statistic_column_name,
+    statistic_display_name,
+    empirical_col_any,
+    empirical_col_min25 = empirical_col_any,
+    control_status_any,
+    control_status_min25 = control_status_any
+  ) {
+    stat_index <<- stat_index + 1L
+    seed_i <- CONTROL_SUBSAMPLING_SEED + stat_index - 1L
+
+    if (!empirical_col_any %in% names(model_assignment_any_subsampling)) {
+      stop("Missing empirical peak significance column: ", empirical_col_any)
+    }
+    if (!empirical_col_min25 %in% names(model_assignment_min25_subsampling)) {
+      stop("Missing empirical peak significance column: ", empirical_col_min25)
+    }
+
+    # Observed significant-peak counts are calculated only across the common
+    # set of 141 Fst peaks with ARG-based data.
+    empirical_any <- sum(
+      model_assignment_any_subsampling[[empirical_col_any]] %in% TRUE
+    )
+    empirical_min25 <- sum(
+      model_assignment_min25_subsampling[[empirical_col_min25]] %in% TRUE
+    )
+
+    # Add an explicit tail designation to every statistic column in the final
+    # matched-control subsampling tables. For most non-ARG statistics this can
+    # be inferred directly from the existing empirical TRUE/FALSE column name.
+    # The primary ARG statistics use generic "significant_*" empirical columns,
+    # so their tested tail is supplied here explicitly.
+    tail_designation <- if (grepl("_high$", empirical_col_any)) {
+      "high"
+    } else if (grepl("_low$", empirical_col_any)) {
+      "low"
+    } else {
+      primary_ARG_tail_lookup <- c(
+        "Tap_Xin_RTH_original" = "low",
+        "xingu_enrich" = "high",
+        "belem_enrich" = "high",
+        "xingu_RTH" = "low",
+        "belem_RTH" = "low",
+        "Xin_Bel_CC_original" = "high"
+      )
+
+      unname(primary_ARG_tail_lookup[statistic_column_name])
+    }
+
+    if (length(tail_designation) == 0L ||
+        is.na(tail_designation) ||
+        !tail_designation %in% c("high", "low")) {
+      stop(
+        "Could not determine high/low tail designation for subsampling statistic: ",
+        statistic_column_name
+      )
+    }
+
+    statistic_column_name_with_tail <- paste0(
+      statistic_column_name,
+      "_",
+      tail_designation
+    )
+
+    null_any <- subsample_control_regions_matching_Fst_peak_sizes(
+      peaks_dt = subsampling_peaks,
+      control_status_dt = control_status_any,
+      n_subsamples = CONTROL_SUBSAMPLING_N,
+      seed = seed_i
+    )
+
+    # The same statistic-specific seed is used for both methods. Whenever the
+    # informative candidate sets are identical, this causes the exact same
+    # genomic control regions to be sampled, so only the significance rule
+    # differs between the two tables.
+    null_min25 <- subsample_control_regions_matching_Fst_peak_sizes(
+      peaks_dt = subsampling_peaks,
+      control_status_dt = control_status_min25,
+      n_subsamples = CONTROL_SUBSAMPLING_N,
+      seed = seed_i
+    )
+
+    subsampling_table_any <<- append_control_subsampling_column(
+      output_dt = subsampling_table_any,
+      statistic_column_name = statistic_column_name_with_tail,
+      statistic_display_name = paste0(statistic_display_name, "_", tail_designation),
+      empirical_count = empirical_any,
+      subsample_counts = null_any$subsample_counts
+    )
+
+    subsampling_table_min25 <<- append_control_subsampling_column(
+      output_dt = subsampling_table_min25,
+      statistic_column_name = statistic_column_name_with_tail,
+      statistic_display_name = paste0(statistic_display_name, "_", tail_designation),
+      empirical_count = empirical_min25,
+      subsample_counts = null_min25$subsample_counts
+    )
+
+    cat(
+      "  completed matched-control subsampling for ",
+      statistic_display_name,
+      "\n",
+      sep = ""
+    )
+  }
+
+
+  # -----------------------------------------------------------
+  # 1. Traditional pixy statistics
+  # -----------------------------------------------------------
+  for (stat in pixy_high_tail_stats) {
+    threshold_i <- if (stat == "Xin_Bel_Fst") {
+      threshold
+    } else {
+      get_threshold_value(pixy_threshold_summary, stat, "upper")
+    }
+
+    status_i <- make_aligned_control_window_status(
+      control_windows_dt = control_windows,
+      stat = stat,
+      threshold = threshold_i,
+      tail = "upper"
+    )
+
+    run_one_subsampling_stat(
+      statistic_column_name = stat,
+      statistic_display_name = unname(plot_labels[stat]),
+      empirical_col_any = paste0(stat, "_high"),
+      control_status_any = status_i
+    )
+  }
+
+  for (stat in pixy_low_tail_stats) {
+    status_i <- make_aligned_control_window_status(
+      control_windows_dt = control_windows,
+      stat = stat,
+      threshold = get_threshold_value(pixy_threshold_summary, stat, "lower"),
+      tail = "lower"
+    )
+
+    run_one_subsampling_stat(
+      statistic_column_name = stat,
+      statistic_display_name = unname(plot_labels[stat]),
+      empirical_col_any = paste0(stat, "_low"),
+      control_status_any = status_i
+    )
+  }
+
+
+  # -----------------------------------------------------------
+  # 2. Non-ARG raw/interval statistics
+  # -----------------------------------------------------------
+
+  # Tapajos-Xingu fd.
+  dt_tmp <- fread(
+    d_stats_file,
+    select = c("scaffold", "start", "end", "sitesUsed", "D", "fd")
+  )
+  setnames(dt_tmp, c("scaffold", "fd"), c("chromosome", "Tapajos_Xingu_fd"))
+  dt_tmp[!is.na(D) & D < 0, Tapajos_Xingu_fd := 0]
+  dt_tmp <- dt_tmp[
+    sitesUsed >= 100 &
+      !is.na(Tapajos_Xingu_fd) &
+      Tapajos_Xingu_fd >= 0 &
+      Tapajos_Xingu_fd <= 1
+  ]
+  dt_tmp[, `:=`(
+    interval_start = as.integer(start - 1L),
+    interval_end = as.integer(end)
+  )]
+  status_i <- make_raw_interval_control_window_status(
+    dt = dt_tmp,
+    stat = "Tapajos_Xingu_fd",
+    control_windows_dt = control_windows,
+    threshold = get_threshold_value(
+      additional_threshold_summary,
+      "Tapajos_Xingu_fd",
+      "upper"
+    ),
+    tail = "upper"
+  )
+  run_one_subsampling_stat(
+    "Tapajos_Xingu_fd",
+    unname(plot_labels["Tapajos_Xingu_fd"]),
+    "Tapajos_Xingu_fd_high",
+    control_status_any = status_i
+  )
+  rm(dt_tmp, status_i); gc()
+
+  # Recombination rate.
+  dt_tmp <- fread(
+    relernn_file,
+    header = FALSE,
+    col.names = c(
+      "chromosome", "interval_start", "interval_end", "recombination_rate"
+    )
+  )
+  status_i <- make_raw_interval_control_window_status(
+    dt = dt_tmp,
+    stat = "recombination_rate",
+    control_windows_dt = control_windows,
+    threshold = get_threshold_value(
+      additional_threshold_summary,
+      "recombination_rate",
+      "lower"
+    ),
+    tail = "lower"
+  )
+  run_one_subsampling_stat(
+    "recombination_rate",
+    unname(plot_labels["recombination_rate"]),
+    "recombination_rate_low",
+    control_status_any = status_i
+  )
+  rm(dt_tmp, status_i); gc()
+
+  # RAiSD U.
+  for (spec in list(
+    list(file = xingu_raisd_file, stat = "Xingu_RAiSD_u"),
+    list(file = belem_raisd_file, stat = "Belem_RAiSD_u")
+  )) {
+    dt_tmp <- fread(
+      spec$file,
+      header = FALSE,
+      col.names = c("chromosome", "interval_start", "interval_end", spec$stat)
+    )
+    status_i <- make_raw_interval_control_window_status(
+      dt = dt_tmp,
+      stat = spec$stat,
+      control_windows_dt = control_windows,
+      threshold = get_threshold_value(
+        additional_threshold_summary,
+        spec$stat,
+        "upper"
+      ),
+      tail = "upper"
+    )
+    run_one_subsampling_stat(
+      spec$stat,
+      unname(plot_labels[spec$stat]),
+      paste0(spec$stat, "_high"),
+      control_status_any = status_i
+    )
+    rm(dt_tmp, status_i); gc()
+  }
+
+  # Absolute normalized iHS and nSL; fixed |value| > 2.
+  for (spec in list(
+    list(file = xingu_ihs_file, stat = "xingu_norm_ihs", input = "norm_ihs"),
+    list(file = xingu_nsl_file, stat = "xingu_norm_nsl", input = "norm_nsl"),
+    list(file = belem_ihs_file, stat = "belem_norm_ihs", input = "norm_ihs"),
+    list(file = belem_nsl_file, stat = "belem_norm_nsl", input = "norm_nsl")
+  )) {
+    dt_tmp <- fread(spec$file, select = c("chr", "pos", spec$input))
+    setnames(dt_tmp, c("chr", spec$input), c("chromosome", spec$stat))
+    status_i <- make_raw_point_control_window_status(
+      dt = dt_tmp,
+      stat = spec$stat,
+      control_windows_dt = control_windows,
+      threshold = 2,
+      tail = "upper",
+      use_abs = TRUE
+    )
+    run_one_subsampling_stat(
+      spec$stat,
+      unname(plot_labels[spec$stat]),
+      paste0(spec$stat, "_high"),
+      control_status_any = status_i
+    )
+    rm(dt_tmp, status_i); gc()
+  }
+
+  # rCNV duplicate-site statistics.
+  dt_tmp <- fread(
+    rcnv_file,
+    select = c(
+      "scaffold", "start", "end",
+      "total.sites", "dup.sites", "perc.dup.sites"
+    ),
+    na.strings = c("NA", "")
+  )
+  setnames(
+    dt_tmp,
+    c(
+      "scaffold", "start", "end",
+      "total.sites", "dup.sites", "perc.dup.sites"
+    ),
+    c(
+      "chromosome", "interval_start", "interval_end",
+      "total_sites", "dup_sites", "perc_dup_sites"
+    )
+  )
+  dt_tmp <- dt_tmp[!is.na(total_sites) & total_sites >= 50]
+
+  for (stat in c("dup_sites", "perc_dup_sites")) {
+    status_i <- make_raw_interval_control_window_status(
+      dt = dt_tmp,
+      stat = stat,
+      control_windows_dt = control_windows,
+      threshold = get_threshold_value(
+        additional_threshold_summary,
+        stat,
+        "upper"
+      ),
+      tail = "upper"
+    )
+    run_one_subsampling_stat(
+      stat,
+      unname(plot_labels[stat]),
+      paste0(stat, "_high"),
+      control_status_any = status_i
+    )
+  }
+  rm(dt_tmp, status_i); gc()
+
+  # Allele statistics: any nonzero U20/U50/Q95 value is significant.
+  for (spec in list(
+    list(
+      file = bel_popA_allele_stats_file,
+      suffix = "belem_popA",
+      display_suffix = "Belem popA"
+    ),
+    list(
+      file = xin_popA_allele_stats_file,
+      suffix = "xingu_popA",
+      display_suffix = "Xingu popA"
+    )
+  )) {
+    dt_tmp <- fread(spec$file)
+    dt_tmp[, `:=`(
+      chromosome = standardize_scaffold_names(chromosome),
+      interval_start = as.integer(start),
+      interval_end = as.integer(end)
+    )]
+
+    for (stat in c("U20", "U50", "Q95")) {
+      output_name <- paste0(stat, "_", spec$suffix)
+      status_i <- make_raw_interval_control_window_status(
+        dt = dt_tmp,
+        stat = stat,
+        control_windows_dt = control_windows,
+        nonzero_is_significant = TRUE
+      )
+      run_one_subsampling_stat(
+        statistic_column_name = output_name,
+        statistic_display_name = paste(stat, spec$display_suffix),
+        empirical_col_any = paste0(output_name, "_high"),
+        control_status_any = status_i
+      )
+    }
+    rm(dt_tmp, status_i); gc()
+  }
+
+
+  # -----------------------------------------------------------
+  # 3. ARG statistics used for model assignment
+  # -----------------------------------------------------------
+
+  # Standard ARG statistics. The same threshold used for empirical peak
+  # significance is applied to the control local-tree values.
+  arg_subsampling_specs <- data.table(
+    stat = c(
+      "Tap_Xin_RTH_original",
+      "xingu_enrich",
+      "belem_enrich",
+      "xingu_RTH",
+      "belem_RTH",
+      "tapajos_enrich",
+      "tapajos_RTH"
+    ),
+    tail = c(
+      "lower",
+      "upper",
+      "upper",
+      "lower",
+      "lower",
+      "upper",
+      "lower"
+    ),
+    empirical_col = c(
+      "significant_Tap_Xin_RTH_original",
+      "significant_xingu_enrich",
+      "significant_belem_enrich",
+      "significant_xingu_RTH",
+      "significant_belem_RTH",
+      "tapajos_enrich_high",
+      "tapajos_RTH_low"
+    )
+  )
+
+  for (spec_i in seq_len(nrow(arg_subsampling_specs))) {
+    spec <- arg_subsampling_specs[spec_i]
+    threshold_i <- get_threshold_value(
+      arg_threshold_summary,
+      spec$stat,
+      spec$tail
+    )
+
+    # The six primary model-assignment statistics use the inclusive >= / <=
+    # rule implemented by make_peak_significance_status(). The two additional
+    # Tapajos statistics use make_ARG_peak_flag_by_assignment_method(), which is
+    # strict > / <. Handle those separately to mirror the empirical calls.
+    if (spec$stat %in% c("tapajos_enrich", "tapajos_RTH")) {
+      arg_points_i <- arg_joined[, .(
+        chromosome,
+        pos,
+        value = get(spec$stat)
+      )]
+      setnames(arg_points_i, "value", spec$stat)
+
+      status_any <- make_point_proportion_control_window_status(
+        dt = arg_points_i,
+        stat = spec$stat,
+        control_windows_dt = control_windows,
+        threshold = threshold_i,
+        tail = spec$tail,
+        min_prop = NA_real_,
+        inclusive_threshold = FALSE
+      )
+      status_min25 <- make_point_proportion_control_window_status(
+        dt = arg_points_i,
+        stat = spec$stat,
+        control_windows_dt = control_windows,
+        threshold = threshold_i,
+        tail = spec$tail,
+        min_prop = 0.25,
+        inclusive_threshold = FALSE
+      )
+      rm(arg_points_i)
+    } else {
+      status_any <- make_ARG_control_window_status(
+        arg_joined_dt = arg_joined,
+        control_windows_dt = control_windows,
+        stat = spec$stat,
+        threshold = threshold_i,
+        tail = spec$tail,
+        min_prop = NA_real_
+      )
+      status_min25 <- make_ARG_control_window_status(
+        arg_joined_dt = arg_joined,
+        control_windows_dt = control_windows,
+        stat = spec$stat,
+        threshold = threshold_i,
+        tail = spec$tail,
+        min_prop = 0.25
+      )
+    }
+
+    run_one_subsampling_stat(
+      statistic_column_name = spec$stat,
+      statistic_display_name = unname(plot_labels[spec$stat]),
+      empirical_col_any = spec$empirical_col,
+      control_status_any = status_any,
+      control_status_min25 = status_min25
+    )
+    rm(status_any, status_min25); gc()
+  }
+
+  # Xingu-Belem RCC is stored in the separate ARG_CC table.
+  cc_threshold_i <- get_threshold_value(
+    arg_cc_threshold_summary,
+    "Xin_Bel_CC_original",
+    "upper"
+  )
+  status_any <- make_ARG_control_window_status(
+    arg_joined_dt = arg_cc_joined,
+    control_windows_dt = control_windows,
+    stat = "Xin_Bel_CC_original",
+    threshold = cc_threshold_i,
+    tail = "upper",
+    min_prop = NA_real_
+  )
+  status_min25 <- make_ARG_control_window_status(
+    arg_joined_dt = arg_cc_joined,
+    control_windows_dt = control_windows,
+    stat = "Xin_Bel_CC_original",
+    threshold = cc_threshold_i,
+    tail = "upper",
+    min_prop = 0.25
+  )
+  run_one_subsampling_stat(
+    "Xin_Bel_CC_original",
+    unname(plot_labels["Xin_Bel_CC_original"]),
+    "significant_Xin_Bel_CC_original",
+    control_status_any = status_any,
+    control_status_min25 = status_min25
+  )
+  rm(status_any, status_min25); gc()
+
+
+  # -----------------------------------------------------------
+  # 4. ARG-based branch Fst statistics
+  # -----------------------------------------------------------
+  for (stat in arg_fst_thresholds$statistic) {
+    threshold_i <- arg_fst_thresholds[
+      statistic == stat,
+      threshold
+    ][1]
+
+    status_any <- make_point_proportion_control_window_status(
+      dt = arg_fst_points,
+      stat = stat,
+      control_windows_dt = control_windows,
+      threshold = threshold_i,
+      tail = "upper",
+      min_prop = NA_real_,
+      inclusive_threshold = FALSE
+    )
+    status_min25 <- make_point_proportion_control_window_status(
+      dt = arg_fst_points,
+      stat = stat,
+      control_windows_dt = control_windows,
+      threshold = threshold_i,
+      tail = "upper",
+      min_prop = 0.25,
+      inclusive_threshold = FALSE
+    )
+
+    run_one_subsampling_stat(
+      statistic_column_name = stat,
+      statistic_display_name = unname(plot_labels[stat]),
+      empirical_col_any = paste0(stat, "_high"),
+      control_status_any = status_any,
+      control_status_min25 = status_min25
+    )
+    rm(status_any, status_min25); gc()
+  }
+
+
+  # Restore the requested row order explicitly after repeated merges.
+  descriptor_order <- c(
+    "Statistic_name",
+    "Empirical_count",
+    "P_0.05_threshold",
+    "P_0.01_threshold",
+    "P_0.001_threshold",
+    paste0("Subsample ", seq_len(CONTROL_SUBSAMPLING_N))
+  )
+
+  subsampling_table_any[
+    , descriptor_order_index := match(Descriptor, descriptor_order)
+  ]
+  setorder(subsampling_table_any, descriptor_order_index)
+  subsampling_table_any[, descriptor_order_index := NULL]
+  setcolorder(
+    subsampling_table_any,
+    c("Descriptor", setdiff(names(subsampling_table_any), "Descriptor"))
+  )
+
+  subsampling_table_min25[
+    , descriptor_order_index := match(Descriptor, descriptor_order)
+  ]
+  setorder(subsampling_table_min25, descriptor_order_index)
+  subsampling_table_min25[, descriptor_order_index := NULL]
+  setcolorder(
+    subsampling_table_min25,
+    c("Descriptor", setdiff(names(subsampling_table_min25), "Descriptor"))
+  )
+
+  fwrite(
+    subsampling_table_any,
+    fst_peak_control_subsampling_any_file,
+    sep = "\t"
+  )
+  fwrite(
+    subsampling_table_min25,
+    fst_peak_control_subsampling_min25_file,
+    sep = "\t"
+  )
+
+  cat(
+    "Completed Fst-peak vs. matched-control significance subsampling for ",
+    ncol(subsampling_table_any) - 1L,
+    " statistics using ",
+    CONTROL_SUBSAMPLING_N,
+    " replicates per statistic.\n",
+    sep = ""
+  )
+}
+
+
 # Create the three peak-size distribution PDFs together under one dedicated
 # switch. These are generated after model assignments are available so the two
 # colored versions can associate each peak with its assignment category.
@@ -10007,6 +11275,10 @@ make_ARG_p_sensitivity_combined_barplot_pdf(
 
 all_ARG_MCMC_iterations <- seq.int(1510L, 2000L, by = 10L)
 
+# This is intentionally OFF by default because reading/summarizing all 50
+# genome-wide ARG iterations is one of the slowest parts of the pipeline.
+if (isTRUE(RUN_MULTI_ITER_ARG_SUMMARIES)) {
+
 multi_iter_ARG_summary <- summarize_multi_iter_ARG_significance(
   iterations = all_ARG_MCMC_iterations,
   barplot_stats = barplot_stats,
@@ -10223,6 +11495,18 @@ multi_iter_model_assignments_all_iterations <- copy(
 
 rm(multi_iter_ARG_summary)
 gc()
+
+} else {
+  # Keep a defined empty object so downstream code can safely test whether
+  # multi-iteration model assignments are available without triggering the
+  # expensive summary calculation.
+  multi_iter_model_assignments_all_iterations <- data.table()
+  cat(
+    "Skipping multi-iteration ARG summary tables because ",
+    "RUN_MULTI_ITER_ARG_SUMMARIES = FALSE.\n",
+    sep = ""
+  )
+}
 
 
 # =============================================================
@@ -11239,10 +12523,11 @@ fwrite(
 }
 
 # Add model assignments from all 50 saved MCMC iterations to the two
-# multi-iteration Manhattan summary tables. This is done even when
-# the corresponding multi-iteration PDF switch is FALSE, so the summary TSVs remain useful
-# without regenerating all Manhattan PDFs. The Manhattan plots themselves still
-# use/display the 2000th-iteration model assignment.
+# multi-iteration Manhattan summary tables only when the slow genome-wide
+# multi-iteration ARG summaries were explicitly requested. The Manhattan PDFs
+# themselves remain independently controlled by their own switches.
+if (isTRUE(RUN_MULTI_ITER_ARG_SUMMARIES)) {
+
 manhattan_any_multi_iter_summary <- add_multi_iter_model_assignments_to_manhattan_summary(
   manhattan_summary_dt = manhattan_any_multi_iter_summary,
   model_dt_2000 = model_assignment_any,
@@ -11272,6 +12557,8 @@ fwrite(
   manhattan_min25_multi_iter_summary_file,
   sep = "\t"
 )
+
+}
 
 rm(
   manhattan_native_values,
