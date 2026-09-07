@@ -378,26 +378,24 @@ Repository for data, scripts, notes, and ARG tutorial associated with manuscript
 │   ├── selscan.md
 │   ├── selscan_Bel.sbatch
 │   └── selscan_Xin.sbatch
-├── SnpArcher
-│   ├── Downloading_X_spixii.md
-│   ├── SNParcher_notes_OU_HPC.md
-│   ├── Xipho_sample_sheet.csv
-│   ├── bam2vcf_gatk_intervals.smk
-│   ├── config
-│   │   └── config.yaml
-│   ├── output
-│   │   ├── FINAL_XIPHO.king
-│   │   ├── FINAL_XIPHO.king.id
-│   │   ├── FINAL_XIPHO_callable_sites.bed
-│   │   └── FINAL_XIPHO_qc.html
-│   ├── rename_fasta.py
-│   ├── scaff_len.py
-│   ├── scaffold_list.txt
-│   ├── scaffold_rename.csv
-│   └── slurm
-│       └── config.yaml
-├── full_file_tree.txt
-└── github_full_file_tree.txt
+└── SnpArcher
+    ├── Downloading_X_spixii.md
+    ├── SNParcher_notes_OU_HPC.md
+    ├── Xipho_sample_sheet.csv
+    ├── bam2vcf_gatk_intervals.smk
+    ├── config
+    │   └── config.yaml
+    ├── output
+    │   ├── FINAL_XIPHO.king
+    │   ├── FINAL_XIPHO.king.id
+    │   ├── FINAL_XIPHO_callable_sites.bed
+    │   └── FINAL_XIPHO_qc.html
+    ├── rename_fasta.py
+    ├── scaff_len.py
+    ├── scaffold_list.txt
+    ├── scaffold_rename.csv
+    └── slurm
+        └── config.yaml
 
 38 directories, 904 files
 ```
